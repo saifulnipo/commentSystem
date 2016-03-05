@@ -1,0 +1,10 @@
+<?php
+require_once('classes/db/Database.php');
+require_once('classes/db/IDbTables.php');
+require_once('classes/dbOperation/Posts.php');
+require_once('classes/dbOperation/Comments.php');
+require_once('classes/stub/Post.php');
+require_once('classes/stub/Comment.php');
+require_once('classes/Url.php');
+require_once('classes/Parameters.php');
+require_once('classes/IAppAction.php');
