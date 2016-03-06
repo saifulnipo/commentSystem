@@ -2,6 +2,7 @@ var CS = CS || {};
 
 /**
  * This file contain bind event related the comments dashboard
+ *
  * @author AQM Saiful Islam
  */
 CS.commentDeshboard = {

@@ -1,11 +1,16 @@
 var CS = CS || {};
 
+/**
+ * This file contain bind event related the post dashboard
+ *
+ * @author AQM Saiful Islam
+ */
 CS.postDeshboard = {
 
     /**
-     * page refresh to load all the posts and comments count in each 30 secords
+     * Page refresh to load all the posts and comments count in each 30 seconds
      */
-    AUTO_PAGE_REFRESH_TIME : 3000,
+    AUTO_PAGE_REFRESH_TIME : 30000,
 
     /**
      *
