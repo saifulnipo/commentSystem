@@ -38,7 +38,6 @@ if ($action === IAppAction::LOAD_ALL_POST) {
     }
     echo json_encode($allPosts);
     exit(0);
-
 }
 
 if ($action === IAppAction::EDIT_POST) {
@@ -54,7 +53,8 @@ if ($action === IAppAction::DELETE_POST) {
 }
 
 include('view/partials/header.php');
-include('view/addNewPost.php');
+include('view/partials/title.php');
+include('view/partials/addNewPost.php');
 include('view/forms/postFormModal.php');
 include('view/showAllPosts.php');
 

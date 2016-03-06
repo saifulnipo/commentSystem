@@ -6,9 +6,6 @@ $postId = Parameters::getParam('post_id', 'string', '');
 $action = Parameters::getParam('action', 'string', '');
 
 switch($action) {
-    case IAppAction::VIEW_POST_DETAILS :
-        include('view/deshboard/commentDeshboard.php');
-        break;
 
     case IAppAction::LOAD_ALL_POST :
     case IAppAction::LOAD_SINGLE_POST :
@@ -21,6 +18,11 @@ switch($action) {
     case IAppAction::DELETE_COMMENT :
         include('view/deshboard/commentDeshboard.php');
         break;
+
+    case IAppAction::VIEW_POST_DETAILS :
+        include('view/deshboard/commentDeshboard.php');
+        break;
+
     default:
         include('view/deshboard/postDeshboard.php');
 }

@@ -19,13 +19,17 @@ if ($action === IAppAction::DELETE_COMMENT) {
     $deleteStatus = (new Comments)->deleteComment($commentId);
 }
 
+$post = (new Posts)->getPostDetails($postId);
 
-echo '<br><br>';
 include('view/partials/header.php');
+include('view/partials/backToPostDeshboard.php');
+echo '<br><br>';
+
+if (null === $post) {
+    include('view/partials/noPostFoundMsg.php');
+    return;
+}
+
 include('view/showSinglePost.php');
 include('view/showAllcomments.php');
 include('view/forms/commentForm.php');
-
-
-
-

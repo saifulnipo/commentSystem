@@ -46,12 +46,13 @@ class Posts {
      */
     public function getPostDetails($postId)
     {
+        $post = null;
         try {
             $db = new Database();
             $query = sprintf('Select * from %s where post_Id = %d', IDbTables::POSTS, $postId);
             $result = $db->select($query);
 
-            if (false === $result) {
+            if (false === $result || 0 === count($result)) {
                 return null;
             }
             $result = $result[0];
