@@ -8,5 +8,6 @@
     <script src="<?php echo Url::getApplicationUrl(); ?>/lib/bootstrap/js/bootstrap.js"></script>
     <script src="<?php echo Url::getApplicationUrl(); ?>/js/postDeshboard.js"></script>
     <script src="<?php echo Url::getApplicationUrl(); ?>/js/commentDeshboard.js"></script>
+    <?php Portal::writePageRefreshRateInfoToJS();?>
 </header>
 <body>

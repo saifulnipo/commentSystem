@@ -1,5 +1,5 @@
 <?php
-Portal::init();
+
 
 if ($action === IAppAction::ADD_POST) {
     $postTitle = Parameters::getParam('postName', 'string', '');

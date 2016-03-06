@@ -5,6 +5,8 @@ include('classloader.php');
 $postId = Parameters::getParam('post_id', 'string', '');
 $action = Parameters::getParam('action', 'string', '');
 
+Portal::init();
+
 switch($action) {
 
     case IAppAction::LOAD_ALL_POST :

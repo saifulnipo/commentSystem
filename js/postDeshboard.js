@@ -9,6 +9,7 @@ CS.postDeshboard = {
 
     /**
      * Page refresh to load all the posts and comments count in each 30 seconds
+     * It is default setting if the server configs are not available for it
      */
     AUTO_PAGE_REFRESH_TIME : 30000,
 
@@ -169,6 +170,9 @@ CS.postDeshboard = {
      */
     bindAutoRefreshEvent: function () {
         if (CS.postDeshboard.isPostDeshboardOnView()) {
+            if (undefined !== variable.page_refresh_rate) {
+                CS.postDeshboard.AUTO_PAGE_REFRESH_TIME = variable.page_refresh_rate * 1000;
+            }
             setInterval(CS.postDeshboard.loadAllPosts, CS.postDeshboard.AUTO_PAGE_REFRESH_TIME);
         }
     },
