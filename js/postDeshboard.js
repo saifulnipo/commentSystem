@@ -33,7 +33,6 @@ CS.postDeshboard = {
      *
      */
     loadAllPosts: function () {
-        console.log('loading....');
         $.ajax({
             type: "POST",
             url: 'index.php',
@@ -54,16 +53,18 @@ CS.postDeshboard = {
      * @param responseData
      */
     renderPostDeshboard: function (responseData) {
-
-        if (responseData.length === 0) {
-            return;
-        }
-
+        $('.progress').hide();
         var resultTemplate = $('.resultRow'),
             allPostContainer = $('.viewAllPosts');
         allPostContainer.empty();
-        allPostContainer.append('<h2>Available Posts : ' + responseData.length + ' </h2>');
+        if (responseData.length === 0) {
+            allPostContainer.append('<div class="alert alert-danger text-center" role="alert">' +
+                'No Posts available. Create a new post :-)' +
+                '</div>');
+            return;
+        }
 
+        allPostContainer.append('<h2>Available Posts : ' + responseData.length + ' </h2>');
         $('#postTotalCount').text(responseData.length);
         $.each(responseData, function (index, post) {
             var renderedTemplate = resultTemplate;
@@ -179,7 +180,7 @@ CS.postDeshboard = {
 
 $(function () {
     CS.postDeshboard.bindAddPostClickEvent();
-    CS.postDeshboard.bindAutoRefreshEvent();
     CS.postDeshboard.bindViewPostDetailsClickEvent();
+    CS.postDeshboard.bindAutoRefreshEvent();
     CS.postDeshboard.loadAllPosts();
 });
