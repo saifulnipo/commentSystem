@@ -29,6 +29,7 @@ This configuration is also possible to change from application settings.
     commentSystem/resource/config.ini
   ```
 
-## user lib
-As `jquery` and `twitter bootstap` has became web application development *de facto*, so i used this two lib for faster development.
+## Used lib in the system
+As `jquery` and `twitter bootstap` has became web application development *de facto*, 
+so i used this two libs for faster development.
  
