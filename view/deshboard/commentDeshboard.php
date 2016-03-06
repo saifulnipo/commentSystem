@@ -21,7 +21,7 @@ if ($action === IAppAction::DELETE_COMMENT) {
 
 
 echo '<br><br>';
-include('view/header.php');
+include('view/partials/header.php');
 include('view/showSinglePost.php');
 include('view/showAllcomments.php');
 include('view/forms/commentForm.php');

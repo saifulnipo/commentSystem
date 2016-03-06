@@ -28,7 +28,7 @@ class Url {
     public static function getApplicationUrl()
     {
         $config = parse_ini_file('./resource/config.ini');
-        return self::getBaseUrl(). '/'. $config['application_name']. '/';
+        return self::getBaseUrl() . $config['application_name']. '/';
     }
 
     /**

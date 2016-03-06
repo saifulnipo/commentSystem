@@ -6,10 +6,11 @@ $postId = Parameters::getParam('post_id', 'string', '');
 $action = Parameters::getParam('action', 'string', '');
 
 switch($action) {
-    case IAppAction::VIEW_POST :
+    case IAppAction::VIEW_POST_DETAILS :
         include('view/deshboard/commentDeshboard.php');
         break;
 
+    case IAppAction::LOAD_ALL_POST :
     case IAppAction::LOAD_SINGLE_POST :
     case IAppAction::EDIT_POST :
     case IAppAction::DELETE_POST :
@@ -24,4 +25,4 @@ switch($action) {
         include('view/deshboard/postDeshboard.php');
 }
 
-include('view/footer.php');
+include('view/partials/footer.php');

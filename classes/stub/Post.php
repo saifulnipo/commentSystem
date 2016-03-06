@@ -63,6 +63,22 @@ class Post {
     }
 
     /**
+     * @param $text
+     * @param int $length
+     * @param string $suffix
+     * @return string
+     */
+    public  function getShortPostDescription($length = PHP_INT_MAX, $suffix = '...')
+    {
+        $text = html_entity_decode($this->getPostDescription());
+        if (mb_strlen($text, 'UTF-8') > $length) {
+            $text = mb_substr($text, 0, $length, 'UTF-8') . $suffix;
+        }
+
+        return $text;
+    }
+
+    /**
      * @return mixed
      */
     public function getPostTime()

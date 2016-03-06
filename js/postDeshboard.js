@@ -3,10 +3,16 @@ var CS = CS || {};
 CS.postDeshboard = {
 
     /**
+     * page refresh to load all the posts and comments count in each 30 secords
+     */
+    AUTO_PAGE_REFRESH_TIME : 3000,
+
+    /**
      *
      * @param $postId
      */
     loadPostInModal: function (postId) {
+        console.log(postId);
         $.ajax({
             type: "POST",
             url: 'index.php',
@@ -21,6 +27,59 @@ CS.postDeshboard = {
             error: function (error) {
             }
         });
+    },
+
+    /**
+     *
+     */
+    loadAllPosts: function () {
+        console.log('loading....');
+        $.ajax({
+            type: "POST",
+            url: 'index.php',
+            data: {
+                action: "load_all_post"
+            },
+            dataType: "json",
+            success: function (data) {
+                CS.postDeshboard.renderPostDeshboard(data);
+            },
+            error: function (error) {
+            }
+        });
+    },
+
+    /**
+     *
+     * @param responseData
+     */
+    renderPostDeshboard: function (responseData) {
+
+        if (responseData.length === 0) {
+            return;
+        }
+
+        var resultTemplate = $('.resultRow'),
+            allPostContainer = $('.viewAllPosts');
+        allPostContainer.empty();
+        allPostContainer.append('<h2>Available Posts : ' + responseData.length + ' </h2>');
+
+        $('#postTotalCount').text(responseData.length);
+        $.each(responseData, function (index, post) {
+            var renderedTemplate = resultTemplate;
+            $(renderedTemplate).find('.title strong').text(post.title);
+            $(renderedTemplate).find('.shortDescription').text(post.postShortDescription);
+            $(renderedTemplate).find('.postTime').text(post.postTime);
+            $(renderedTemplate).find('.viewPost').attr('href', post.url);
+            $(renderedTemplate).find('.editPost').attr('data-post_id', post.id);
+            $(renderedTemplate).find('.deletePost').attr('data-post_id', post.id);
+            $(renderedTemplate).find('.commentCount').text(post.commentCount);
+            allPostContainer.append(renderedTemplate.html());
+        });
+
+        // add bind event to dynamic content
+        CS.postDeshboard.bindEditPostClickEvent();
+        CS.postDeshboard.bindDeletePostClickEvent();
     },
     
     /**
@@ -52,7 +111,6 @@ CS.postDeshboard = {
             $('#postName').val('');
             $('#postEmail').val('');
             $('#postMessage').val('');
-            //$('#postForm').reset();
         });
     },
 
@@ -76,31 +134,52 @@ CS.postDeshboard = {
     bindDeletePostClickEvent: function () {
         $(".deletePost").bind("click", function () {
             var postId = $(this).data('post_id');
-
             if (confirm('Press Ok will delete this post permanently.\nDo you like to delete?')) {
                 CS.postDeshboard.deletePost(postId);
             }
         });
     },
 
+
     /**
      * Bind click event action on the checkboxes.
      *
      * @return void
      */
-    bindAddCommentsClickEvent: function () {
-        $("#newCommentSubmitButton").bind("click", function () {
-            $('#action').val('view_comments');
-            $('commentForm').submit();
+    bindViewPostDetailsClickEvent: function () {
+        $(".viewPost").bind("click", function () {
+            if (null !== CS.postDeshboard.pageRefreshPointer) {
+                clearInterval(CS.postDeshboard.pageRefreshPointer);
+            }
         });
+    },
+
+    /**
+     * Bind auto refresh only of post deshboard view to get all the latest posts.
+     *
+     * @return void
+     */
+    bindAutoRefreshEvent: function () {
+        if (CS.postDeshboard.isPostDeshboardOnView()) {
+            setInterval(CS.postDeshboard.loadAllPosts, CS.postDeshboard.AUTO_PAGE_REFRESH_TIME);
+        }
+    },
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    isPostDeshboardOnView : function() {
+        if ($('#postForm').length > 0) {
+            return true;
+        }
+        return false;
     }
 };
 
 $(function () {
-    CS.postDeshboard.bindEditPostClickEvent();
-    CS.postDeshboard.bindDeletePostClickEvent();
     CS.postDeshboard.bindAddPostClickEvent();
-
-    //comments section
-    CS.postDeshboard.bindAddCommentsClickEvent();
+    CS.postDeshboard.bindAutoRefreshEvent();
+    CS.postDeshboard.bindViewPostDetailsClickEvent();
+    CS.postDeshboard.loadAllPosts();
 });

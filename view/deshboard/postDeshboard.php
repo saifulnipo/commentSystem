@@ -18,6 +18,29 @@ if ($action === IAppAction::LOAD_SINGLE_POST) {
     exit(0);
 }
 
+if ($action === IAppAction::LOAD_ALL_POST) {
+    $posts = (new Posts)->getAllPosts();
+    $allPosts = array();
+    foreach ($posts as $post) {
+        $postDetails = array(
+            'id'               => $post->getPostId(),
+            'title'                => $post->getPostTitle(),
+            'postTime'             => $post->getPostTime(),
+            'postShortDescription' => $post->getShortPostDescription(130),
+            'commentCount'         => $post->getCommentCount(),
+            'url'                  => sprintf("%s?action=%s&post_id=%s",
+                Url::getApplicationUrl(),
+                IAppAction::VIEW_POST_DETAILS,
+                $post->getPostId()
+            )
+        );
+        $allPosts[] = $postDetails;
+    }
+    echo json_encode($allPosts);
+    exit(0);
+
+}
+
 if ($action === IAppAction::EDIT_POST) {
     $postTitle = Parameters::getParam('postName', 'string', '');
     $email = Parameters::getParam('postEmail', 'string', '');
@@ -28,11 +51,11 @@ if ($action === IAppAction::EDIT_POST) {
 
 if ($action === IAppAction::DELETE_POST) {
     $deleteStatus = (new Posts)->deletePost($postId);
-
 }
 
-include('view/header.php');
-include('view/showAllPosts.php');
+include('view/partials/header.php');
+include('view/addNewPost.php');
 include('view/forms/postFormModal.php');
+include('view/showAllPosts.php');
 
 
