@@ -1,11 +1,13 @@
 <?php
 if ('' === $postId) {
-    return;
+    /* Redirect browser */
+    header("Location:" . Url::getApplicationUrl());
+    exit;
 }
 
 if('' !== Parameters::getParam('newCommentSubmit', 'string', '')) {
     $commenterName = Parameters::getParam('commenterName', 'string', '');
-    $commenterEmail = Parameters::getParam('commenterEmail', 'string', '');
+    $commenterEmail = Parameters::getParam('commenterEmail', 'email', '');
     $commentMessage = Parameters::getParam('comment', 'string', '');
     $comment = (new Comment)->setCommenterName($commenterName)
         ->setCommenterEmail($commenterEmail)
@@ -23,7 +25,7 @@ $post = (new Posts)->getPostDetails($postId);
 
 include('view/partials/header.php');
 include('view/partials/backToPostDeshboard.php');
-echo '<br><br>';
+echo '<br><br><br>';
 
 if (null === $post) {
     include('view/partials/noPostFoundMsg.php');

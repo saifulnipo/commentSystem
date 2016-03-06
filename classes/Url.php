@@ -15,6 +15,8 @@ class Url {
     const SSL_SERVER_PORT = 443;
 
     /**
+     * Return base url
+     *
      * @return string
      */
     public static function getBaseUrl()
@@ -23,6 +25,8 @@ class Url {
     }
 
     /**
+     * Return application url i.e base url + name of the applicaiton
+     *
      * @return string
      */
     public static function getApplicationUrl()
@@ -74,5 +78,4 @@ class Url {
 
         return self::getProtocol() . self::getBaseUrl() . $request_uri;
     }
-
 }

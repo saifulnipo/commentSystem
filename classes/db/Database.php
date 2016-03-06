@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Class Database
+ * Class Database for db connection
+ * @author : AQM Saiful Islam
  */
 class Database {
-    // The database connection
     protected static $connection;
 
     /**
@@ -13,35 +13,22 @@ class Database {
      * @return bool false on failure / mysqli MySQLi object instance on success
      */
     public function connect() {
-        // Try and connect to the database
+
         if (!isset(self::$connection)) {
             // Load configuration as an array. Use the actual location of your configuration file
             $config = parse_ini_file('./resource/config.ini');
             self::$connection = new mysqli($config['host'], $config['username'], $config['password'], $config['dbname']);
+            // Check connection
+            if (self::$connection->connect_error) {
+                return false;
+            }
         }
 
-        // If connection was not successful, handle the error
         if (self::$connection === false) {
-            // Handle error - notify administrator, log to a file, show an error screen, etc.
             return false;
         }
+
         return self::$connection;
-    }
-
-    /**
-     * Query the database
-     *
-     * @param $query The query string
-     * @return mixed The result of the mysqli::query() function
-     */
-    private function query($query) {
-        // Connect to the database
-        $connection = $this->connect();
-
-        // Query the database
-        $result = $connection->query($query);
-
-        return $result;
     }
 
     /**
@@ -52,7 +39,7 @@ class Database {
      */
     public function select($query) {
         $rows = array();
-        $result = $this->query($query);
+        $result = $this->_query($query);
         if($result === false) {
             return false;
         }
@@ -91,13 +78,15 @@ class Database {
     }
 
     /**
-     * Quote and escape value for use in a database query
+     * Query the database
      *
-     * @param string $value The value to be quoted and escaped
-     * @return string The quoted and escaped string
+     * @param $query The query string
+     * @return mixed The result of the mysqli::query() function
      */
-    public function quote($value) {
+    private function _query($query) {
         $connection = $this->connect();
-        return "'" . $connection->real_escape_string($value) . "'";
+        $result = $connection->query($query);
+
+        return $result;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 /**
  * Class Posts
+ * @author : AQM Saiful Islam
  */
 class Posts {
 
@@ -80,7 +81,7 @@ class Posts {
         try {
             $db = new Database();
             $sql = sprintf(
-                'UPDATE TABLE %s SET post_title = "%s", post_email = "%s", post_description = "%s", post_time = now()
+                'UPDATE %s SET post_title = "%s", post_email = "%s", post_description = "%s", post_time = now()
                  WHERE post_Id="%s"',
                 IDbTables::POSTS,
                 $post->getPostTitle(),
@@ -142,6 +143,15 @@ class Posts {
             $result = false;
         }
         return $result;
+    }
+
+    public function init() {
+
+//        if (!$db->connect()) {
+//            echo '<h2>DB connection failed</h2>';
+//            exit;
+//        }
+
     }
 
 }

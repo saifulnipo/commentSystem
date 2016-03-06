@@ -1,16 +1,17 @@
 <?php
 
 /**
- * Class Comment
+ * Class Comment stub
+ * author: AQM Saiful Islam
  */
 class Comment {
 
-    private $_comment_id;
-    private $_commenterName;
-    private $_commenterEmail;
-    private $_commentDescription;
+    private $_comment_id = null;
+    private $_commenterName = null;
+    private $_commenterEmail = null;
+    private $_commentDescription = null;
     private $_commentTime;
-    private $_commentOnPostId;
+    private $_commentOnPostId = null;
 
     /**
      * @return mixed
@@ -34,7 +35,7 @@ class Comment {
      */
     public function getCommenterName()
     {
-        return $this->_commenterName;
+        return trim($this->_commenterName);
     }
 
     /**
@@ -68,7 +69,7 @@ class Comment {
      */
     public function getCommentDescription()
     {
-        return $this->_commentDescription;
+        return trim($this->_commentDescription);
     }
 
     /**
@@ -112,5 +113,19 @@ class Comment {
     {
         $this->_commentOnPostId = $commentOnPostId;
         return $this;
+    }
+
+    /**
+     * Validate current input
+     * @return bool
+     */
+    public function validate()
+    {
+        if (null === $this->getCommentOnPostId() ||
+            null === $this->getCommenterEmail() ||
+            null === $this->getCommentDescription()) {
+            return false;
+        }
+        return true;
     }
 }

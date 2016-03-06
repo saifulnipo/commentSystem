@@ -2,6 +2,7 @@
 
 /**
  * Class Parameters
+ * author: AQM Saiful Islam
  */
 class Parameters
 {

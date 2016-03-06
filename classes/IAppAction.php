@@ -2,6 +2,7 @@
 
 /**
  * Interface IAppAction
+ * author: AQM Saiful Islam
  */
 interface IAppAction {
     const VIEW_POST_DETAILS  = 'view_post';

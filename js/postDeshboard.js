@@ -49,6 +49,7 @@ CS.postDeshboard = {
                 CS.postDeshboard.renderPostDeshboard(data);
             },
             error: function (error) {
+                $('.progress').hide();
             }
         });
     },
@@ -98,11 +99,12 @@ CS.postDeshboard = {
         $('#postForm').submit();
     },
 
-    displayPostModal: function(data) {
+    displayPostModal: function(post) {
         $('#action').val('edit_post');
-        $('#postName').val(data.title);
-        $('#postEmail').val(data.email);
-        $('#postMessage').val(data.postDescription);
+        $('#post_id').val(post.id);
+        $('#postName').val(post.title);
+        $('#postEmail').val(post.email);
+        $('#postMessage').val(post.postDescription);
         $('#postFormModal').modal('show');
     },
 

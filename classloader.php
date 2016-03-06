@@ -8,3 +8,4 @@ require_once('classes/stub/Comment.php');
 require_once('classes/Url.php');
 require_once('classes/Parameters.php');
 require_once('classes/IAppAction.php');
+require_once('classes/Portal.php');

@@ -1,15 +1,20 @@
 <?php
+Portal::init();
+
 if ($action === IAppAction::ADD_POST) {
     $postTitle = Parameters::getParam('postName', 'string', '');
-    $email = Parameters::getParam('postEmail', 'string', '');
+    $email = Parameters::getParam('postEmail', 'email', '');
     $postDescription = Parameters::getParam('postMessage', 'string', '');
     $post = (new Post)->setPostTitle($postTitle)->setPostEmail($email)->setPostDescription($postDescription);
-    $createStatus = (new Posts)->createPost($post);
+    if ($post->validate()) {
+        $createStatus = (new Posts)->createPost($post);
+    }
 }
 
 if ($action === IAppAction::LOAD_SINGLE_POST) {
     $post = (new Posts)->getPostDetails($postId);
     $postDetails = array(
+        'id'              => $postId,
         'title'           => $post->getPostTitle(),
         'email'           => $post->getPostEmail(),
         'postDescription' => $post->getPostDescription()
@@ -42,10 +47,14 @@ if ($action === IAppAction::LOAD_ALL_POST) {
 
 if ($action === IAppAction::EDIT_POST) {
     $postTitle = Parameters::getParam('postName', 'string', '');
-    $email = Parameters::getParam('postEmail', 'string', '');
+    $email = Parameters::getParam('postEmail', 'email', '');
     $postDescription = Parameters::getParam('postMessage', 'string', '');
-    $post = (new Post)->setPostTitle($postTitle)->setPostEmail($email)->setPostDescription($postDescription);
-    $createStatus = (new Posts)->updatePost($post);
+    $post = (new Post)
+        ->setPostId($postId)
+        ->setPostTitle($postTitle)
+        ->setPostEmail($email)
+        ->setPostDescription($postDescription);
+    $updateStatus = (new Posts)->updatePost($post);
 }
 
 if ($action === IAppAction::DELETE_POST) {

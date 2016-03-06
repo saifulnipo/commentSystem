@@ -2,6 +2,7 @@
 
 /**
  * Interface IDbTableNames
+ * @author : AQM Saiful Islam
  */
 interface IDbTables {
     const POSTS    = 'posts';

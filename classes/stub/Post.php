@@ -1,15 +1,16 @@
 <?php
 
 /**
- * Class Comment
+ * Class Post stub
+ * author: AQM Saiful Islam
  */
 class Post {
-    private $_postId;
-    private $_postTitle;
-    private $_postEmail;
-    private $_postDescription;
+    private $_postId = null;
+    private $_postTitle = null;
+    private $_postEmail = null;
+    private $_postDescription = null;
     private $_postTime;
-    private $_commentCount;
+    private $_commentCount = 0;
 
     /**
      * @return mixed
@@ -33,7 +34,7 @@ class Post {
      */
     public function getPostTitle()
     {
-        return $this->_postTitle;
+        return trim($this->_postTitle);
     }
 
     /**
@@ -50,7 +51,7 @@ class Post {
      */
     public function getPostDescription()
     {
-        return $this->_postDescription;
+        return trim($this->_postDescription);
     }
 
     /**
@@ -129,9 +130,18 @@ class Post {
         return $this;
     }
 
+    /**
+     * Validate current input
+     * @return bool
+     */
     public function validate()
     {
-
+        if (null === $this->getPostTitle() ||
+            null === $this->getPostEmail() ||
+            null === $this->getPostDescription()) {
+            return false;
+        }
+        return true;
     }
 
 }
