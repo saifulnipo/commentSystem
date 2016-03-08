@@ -1,5 +1,11 @@
 # CommentSystem
 
+## Application Url
+Following url works if this application is running on a local web server.
+
+`http://localhost//commentSystem/`
+
+
 ## Application name
 Current name of the application is `commentSystem` and the folder name is same as the application name.
 
